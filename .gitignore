@@ -7,3 +7,4 @@
 /captures
 # Remove credentials from github
 /src/main/resources/credentials/*
+/tokens/
