@@ -1,3 +1,8 @@
 package net.lafierage.cmdb.utils
 
-const val BOT_TOKEN = "ODQ0OTg1MjEwMjE0MDIzMjA5.YKaXzQ.d_dtdE6IIWxOrbKZIygzR9RRy2Y"
+import com.google.gson.Gson
+import com.google.gson.stream.JsonReader
+import net.lafierage.cmdb.model.BotCredentials
+import java.io.FileReader
+
+val BOT_TOKEN: BotCredentials = Gson().fromJson(JsonReader(FileReader("src/main/resources/credentials/bot_credentials.json")), BotCredentials::class.java)

@@ -5,4 +5,5 @@
 .DS_Store
 /build
 /captures
-/src/main/resources/credentials.json
+# Remove credentials from github
+/src/main/resources/credentials/*
