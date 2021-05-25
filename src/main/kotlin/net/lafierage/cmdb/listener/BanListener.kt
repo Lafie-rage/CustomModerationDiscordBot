@@ -24,7 +24,7 @@ class BanListener : ListenerAdapter() {
     private fun logBannedUser(user: User, server: Guild) {
         println("Ban : $user")
         servers.forEach {
-            if(it.server == server) {
+            if (it.server == server) {
                 it.userBanned.add(user)
                 return
             }
@@ -35,6 +35,5 @@ class BanListener : ListenerAdapter() {
 
     private fun logUnbannedUser(user: User) {
         println("Unban : $user")
-
     }
 }

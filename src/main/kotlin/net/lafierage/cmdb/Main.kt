@@ -10,19 +10,21 @@ import com.google.api.client.http.javanet.NetHttpTransport
 import com.google.api.client.util.store.FileDataStoreFactory
 import com.google.api.services.sheets.v4.Sheets
 import com.google.api.services.sheets.v4.model.ValueRange
-import com.sun.tools.javac.Main
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.requests.GatewayIntent
 import net.lafierage.cmdb.listener.BanListener
 import net.lafierage.cmdb.listener.KickListener
 import net.lafierage.cmdb.listener.UserJoinListener
+import net.lafierage.cmdb.model.AbusiveBan
+import net.lafierage.cmdb.model.BannedUser
+import net.lafierage.cmdb.model.KickedUser
 import net.lafierage.cmdb.model.Server
 import net.lafierage.cmdb.utils.*
-import java.io.*
-
+import java.io.File
+import java.io.FileReader
+import java.io.IOException
 
 val servers = ArrayList<Server>()
-
 
 fun main() {
     val jda = JDABuilder.create(BOT_CREDENTIALS.bot.token, arrayListOf(GatewayIntent.GUILD_MEMBERS))
@@ -34,22 +36,86 @@ fun main() {
 
     // Build a new authorized API client service.
     val httpTransport = GoogleNetHttpTransport.newTrustedTransport()
-    val spreadsheetId = SPREAD_SHEET_CREDENTIALS.spreadSheet.id
-    val range = "Class Data!A2:E"
     val service = Sheets.Builder(httpTransport, JSON_FACTORY, getCredentials(httpTransport))
         .setApplicationName(APPLICATION_NAME)
         .build()
+    getBannedUsers(service)
+    getKickedUsers(service)
+}
+
+/**
+ * Load and display banned users
+ *
+ * @return List of banned users
+ */
+private fun getBannedUsers(service: Sheets): List<BannedUser> {
+    val users: MutableList<BannedUser> = ArrayList()
+    val range = "Bans!A2:H"
+    val values = getData(service, range)
+    if (values.isEmpty()) {
+        println("No data found for banned users.")
+    } else {
+        println("BANS")
+        for (row in values) {
+            users.add(
+                BannedUser(
+                    date = getDateFormat().parse(row[0].toString()),
+                    pseudo = row[1].toString(),
+                    role = row[2].toString(),
+                    banner = row[3].toString(),
+                    reason = row[4].toString(),
+                    isAbusive = AbusiveBan.values().filter {
+                        row[5].toString().contains(it.message)
+                    }[0],
+                    isUnbanned = row[6].toString() == "Oui",
+                    hasBeenInvited = row[7].toString() == "Oui"
+                )
+            )
+            println(users[users.lastIndex])
+        }
+    }
+    return users
+}
+
+/**
+ * Load and display kicked users
+ *
+ * @return List of kicked users
+ */
+private fun getKickedUsers(service: Sheets): List<KickedUser> {
+    val users: MutableList<KickedUser> = ArrayList()
+    val range = "Kicks!A2:G"
+    val values = getData(service, range)
+    if (values.isEmpty()) {
+        println("No data found for kicked users.")
+    } else {
+        println("Kicks")
+        for (row in values) {
+            users.add(
+                KickedUser(
+                    date = getDateFormat().parse(row[0].toString()),
+                    pseudo = row[1].toString(),
+                    role = row[2].toString(),
+                    kicker = row[3].toString(),
+                    reason = row[4].toString(),
+                    isAbusive = AbusiveBan.valueOf(row[5].toString().substringBefore(endIsAbusive)),
+                    hasBeenInvited = row[6].toString() == "Oui"
+                )
+            )
+            println(users[users.lastIndex])
+        }
+    }
+    return users
+}
+
+private fun getData(service: Sheets, range: String): List<List<Any>> {
+    val spreadsheetId = SPREAD_SHEET_CREDENTIALS.spreadSheet.id
     val response: ValueRange = service.spreadsheets().values()[spreadsheetId, range]
         .execute()
-    val values: List<List<Any>> = response.getValues()
-    if (values.isEmpty()) {
-        println("No data found.")
-    } else {
-        println("Name, Major")
-        for (row in values) {
-            // Print columns A and E, which correspond to indices 0 and 4.
-            System.out.printf("%s, %s\n", row[0], row[4])
-        }
+    return response.getValues()?.let {
+        response.getValues()
+    } ?: run {
+        arrayOf<List<Any>>().toList()
     }
 }
 

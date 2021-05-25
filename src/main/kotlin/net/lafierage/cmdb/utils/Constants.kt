@@ -7,6 +7,7 @@ import com.google.gson.stream.JsonReader
 import net.lafierage.cmdb.model.BotCredentials
 import net.lafierage.cmdb.model.SpreadSheetCredentials
 import java.io.FileReader
+import java.text.SimpleDateFormat
 import java.util.*
 
 //region Sheets API credentials
@@ -24,4 +25,9 @@ const val TOKENS_DIRECTORY_PATH = "tokens"
 const val BOT_CREDENTIALS_FILE_PATH = "src/main/resources/credentials/bot_credentials.json"
 val BOT_CREDENTIALS: BotCredentials =
     Gson().fromJson(JsonReader(FileReader(BOT_CREDENTIALS_FILE_PATH)), BotCredentials::class.java)
+//endregion
+
+//region APP
+const val endIsAbusive = " (champ rempli sous la contrainte)"
+fun getDateFormat() = SimpleDateFormat("dd/MM/yyyy hh:mm:ss", Locale.FRANCE)
 //endregion
