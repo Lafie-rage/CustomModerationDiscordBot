@@ -4,6 +4,7 @@
 /.idea
 .DS_Store
 /build
+/out
 /captures
 # Remove credentials from github
 /src/main/resources/credentials/*
