@@ -3,22 +3,17 @@ package net.lafierage.cmdb.listener
 import com.google.api.services.sheets.v4.Sheets
 import net.dv8tion.jda.api.audit.ActionType
 import net.dv8tion.jda.api.audit.AuditLogEntry
-import net.dv8tion.jda.api.entities.Guild
 import net.dv8tion.jda.api.entities.Member
 import net.dv8tion.jda.api.entities.Role
 import net.dv8tion.jda.api.entities.User
-import net.dv8tion.jda.api.events.guild.GuildBanEvent
 import net.dv8tion.jda.api.events.guild.GuildUnbanEvent
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 import net.lafierage.cmdb.model.AbusiveBan
 import net.lafierage.cmdb.model.BannedUser
-import net.lafierage.cmdb.model.Server
-import net.lafierage.cmdb.servers
 import net.lafierage.cmdb.setData
 import net.lafierage.cmdb.updateData
 import net.lafierage.cmdb.utils.RANGE_BANS
-import net.lafierage.cmdb.utils.UNBAN_POSITION
 import java.util.*
 import java.util.concurrent.TimeUnit
 

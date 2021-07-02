@@ -32,10 +32,7 @@ const val endIsAbusive = " (champ rempli sous la contrainte)"
 fun getDateFormat() = SimpleDateFormat("dd/MM/yyyy hh:mm:ss", Locale.FRANCE)
 const val RANGE_BANS = "Bans!A2:H"
 const val RANGE_KICKS = "Kicks!A2:G"
-fun getBansRange(row: Int) = "Bans!A${2+row}:H${2+row}"
-fun getKicksRange(row: Int) = "Kicks!A${2+row}:G${2+row}"
-const val UNBAN_POSITION = 6
-const val INVITE_POSITION_BAN = 6
-const val INVITE_POSITION_KICK = 6
+fun getBansRange(row: Int) = "Bans!A${2 + row}:H${2 + row}"
+fun getKicksRange(row: Int) = "Kicks!A${2 + row}:G${2 + row}"
 
 //endregion

@@ -19,7 +19,7 @@ enum class AbusiveBan(val message: String) {
          * @return A reason why the ban wasn't abusive
          */
         fun getRandomAbusiveBan(): AbusiveBan {
-            return when((Math.random() * SIZE).toInt()) {
+            return when ((Math.random() * SIZE).toInt()) {
                 0 -> NOT_AT_ALL
                 1 -> ALWAYS_DESERVED
                 2 -> LEGIT

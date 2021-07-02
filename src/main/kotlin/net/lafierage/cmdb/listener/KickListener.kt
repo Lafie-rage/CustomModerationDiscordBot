@@ -1,7 +1,6 @@
 package net.lafierage.cmdb.listener
 
 import com.google.api.services.sheets.v4.Sheets
-import com.google.api.services.sheets.v4.model.ValueRange
 import net.dv8tion.jda.api.audit.ActionType
 import net.dv8tion.jda.api.audit.AuditLogEntry
 import net.dv8tion.jda.api.entities.Member
@@ -44,7 +43,7 @@ class KickListener(private val service: Sheets) : ListenerAdapter() {
         val kickedUser = KickedUser(
             date = Calendar.getInstance().time,
             pseudo = user.asTag,
-            role = if(roles.isNotEmpty()) roles[0].name else "Aucun",
+            role = if (roles.isNotEmpty()) roles[0].name else "Aucun",
             kicker = log.user!!.asTag,
             reason = log.reason ?: "",
             isAbusive = AbusiveBan.getRandomAbusiveBan(),

@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder
 import net.lafierage.cmdb.utils.endIsAbusive
 import net.lafierage.cmdb.utils.getDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 data class KickedUser(
     val date: Date,
@@ -13,9 +12,9 @@ data class KickedUser(
     val role: String,
     val kicker: String,
     val reason: String,
-    val isAbusive: AbusiveBan ,
+    val isAbusive: AbusiveBan,
     val hasBeenInvited: Boolean = false
-): User {
+) : User {
 
     override fun toString(): String {
         val gson = GsonBuilder().setPrettyPrinting().create()
@@ -30,7 +29,7 @@ data class KickedUser(
         asList.add(kicker)
         asList.add(reason)
         asList.add(isAbusive.message + endIsAbusive)
-        asList.add(if(hasBeenInvited) "Oui" else "Non")
+        asList.add(if (hasBeenInvited) "Oui" else "Non")
         val values = listOf(asList)
         val valueRange = ValueRange()
         valueRange.setValues(values)

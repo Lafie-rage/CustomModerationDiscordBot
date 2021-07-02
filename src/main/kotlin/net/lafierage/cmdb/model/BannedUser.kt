@@ -15,7 +15,7 @@ data class BannedUser(
     val isAbusive: AbusiveBan,
     val isUnbanned: Boolean = false,
     val hasBeenInvited: Boolean = false
-): User {
+) : User {
     override fun toValueList(): ValueRange {
         val asList = ArrayList<Any>()
         asList.add(getDateFormat().format(date))
@@ -24,8 +24,8 @@ data class BannedUser(
         asList.add(banner)
         asList.add(reason)
         asList.add(isAbusive.message + endIsAbusive)
-        asList.add(if(isUnbanned) "Oui" else "Non")
-        asList.add(if(hasBeenInvited) "Oui" else "Non")
+        asList.add(if (isUnbanned) "Oui" else "Non")
+        asList.add(if (hasBeenInvited) "Oui" else "Non")
         val values = listOf(asList)
         val valueRange = ValueRange()
         valueRange.setValues(values)
