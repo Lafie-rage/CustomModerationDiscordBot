@@ -34,5 +34,6 @@ const val RANGE_BANS = "Bans!A2:H"
 const val RANGE_KICKS = "Kicks!A2:G"
 fun getBansRange(row: Int) = "Bans!A${2 + row}:H${2 + row}"
 fun getKicksRange(row: Int) = "Kicks!A${2 + row}:G${2 + row}"
-
+val BOT_PREFIX = "!" // TODO : Permit prefix modification
+const val SHEETS_URL = "https://docs.google.com/spreadsheets/d/19VJEFWVvzr29Et3xnG1JMFx0HruqE0pZe4MhQTLt5UE/edit?usp=sharing"
 //endregion

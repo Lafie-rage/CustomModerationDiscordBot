@@ -14,6 +14,7 @@ import com.google.gson.GsonBuilder
 import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.requests.GatewayIntent
 import net.lafierage.cmdb.listener.BanListener
+import net.lafierage.cmdb.listener.CommandListener
 import net.lafierage.cmdb.listener.JoinListener
 import net.lafierage.cmdb.listener.KickListener
 import net.lafierage.cmdb.model.AbusiveBan
@@ -36,6 +37,7 @@ fun main() {
         .addEventListeners(BanListener(service))
         .addEventListeners(KickListener(service))
         .addEventListeners(JoinListener(service))
+        .addEventListeners(CommandListener())
         .enableIntents(GatewayIntent.GUILD_BANS)
         .build()
     jda.awaitReady()
